@@ -4,10 +4,15 @@ wiki预料中部分为繁体，为了避免相同的词由于不同写法而导�
 """
 
 import os
+import sys
 
-dir = '/Users/ever/Documents/AI/NLP课程/projects/1/corpus/wiki_raw'
-dir_out = '/Users/ever/Documents/AI/NLP课程/projects/1/corpus/wiki/'
-sub_dirs = ['A' + chr(i) for i in range(65, 79)]
+# dir = '/Users/ever/Documents/AI/NLP课程/projects/1/corpus/wiki_raw'
+# dir_out = '/Users/ever/Documents/AI/NLP课程/projects/1/corpus/wiki/'
+dir = sys.argv[1]
+dir_out = sys.argv[2]
+
+# sub_dirs = ['A' + chr(i) for i in range(65, 79)]
+sub_dirs = ['AA']
 # print(sub_dirs)
 output_file_index = 0
 for sub_dir in sub_dirs:
