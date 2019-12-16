@@ -1,6 +1,10 @@
 import pandas as pd
 import numpy as np
 import codecs
+import sys
+
+input_file = sys.argv[1]
+output_file = sys.argv[2]
 
 df = pd.read_csv('sqlResult_1558435.csv', encoding="gb18030")
 data = df['content']
