@@ -6,10 +6,10 @@ import sys
 input_file = sys.argv[1]
 output_file = sys.argv[2]
 
-df = pd.read_csv('sqlResult_1558435.csv', encoding="gb18030")
+df = pd.read_csv(input_file, encoding="gb18030")
 data = df['content']
 
-file = codecs.open('news_corpus.txt', 'w', encoding='utf-8')
+file = codecs.open(output_file, 'w', encoding='utf-8')
 
 for idx, text in data.items():
     if not pd.isna(text):
