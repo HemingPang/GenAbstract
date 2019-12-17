@@ -12,9 +12,10 @@ logging.root.setLevel(level=logging.INFO)
 
 logger.info("running %s" % ' '.join(sys.argv))
 
-corpus_path = '/Users/ever/Documents/AI/NLP课程/projects/1/corpus/corpus.txt'
-model_output = '/Users/ever/Documents/AI/NLP课程/projects/1/GenAbstract/result'
-w2v_output = model_output
+# corpus_path = '/Users/ever/Documents/AI/NLP课程/projects/1/corpus/corpus.txt'
+# model_output = '/Users/ever/Documents/AI/NLP课程/projects/1/GenAbstract/result'
+# 模型的后缀是.model，词向量的后缀是.vector
+corpus_path, model_output, w2v_output = sys.argv[1:4]
 
 model = Word2Vec(sentences=LineSentence(source=corpus_path), size=400, window=5, min_count=5,
                  workers=multiprocessing.cpu_count())
