@@ -14,10 +14,12 @@ logging.root.setLevel(level=logging.INFO)
 logger.info("running %s" % ' '.join(sys.argv))
 
 wiki_model = Word2Vec.load(model_name)
-
-logger.info(wiki_model.wv.most_similar(test_word))
+result = wiki_model.wv.most_similar(test_word)
+if result is not None:
+    logger.info()
 
 if int(should_test_linear):
     x1, x2, y1 = sys.argv[4:7]
     result = wiki_model.most_similar(positive=[y1, x2], negative=[x1])
-    logger.info(result)
+    if result is not None:
+        logger.info(result)
