@@ -16,7 +16,7 @@ logger.info("running %s" % ' '.join(sys.argv))
 wiki_model = Word2Vec.load(model_name)
 result = wiki_model.wv.most_similar(test_word)
 if result is not None:
-    logger.info()
+    logger.info(result)
 
 if int(should_test_linear):
     x1, x2, y1 = sys.argv[4:7]
