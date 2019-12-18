@@ -7,6 +7,14 @@ import os
 import sys
 from tqdm import tqdm
 from tools.Common import get_num_lines
+import logging
+
+program = os.path.basename(sys.argv[0])
+logger = logging.getLogger(program)
+logging.basicConfig(format='%(asctime)s: %(levelname)s: %(message)s')
+logging.root.setLevel(level=logging.INFO)
+
+logger.info("running %s" % ' '.join(sys.argv))
 
 jieba.add_word('沪指')
 jieba.add_word('沪深')
