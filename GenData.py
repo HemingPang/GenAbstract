@@ -5,62 +5,41 @@ import codecs
 import jieba.analyse
 import os
 import sys
+from tqdm import tqdm
+from tools.Common import get_num_lines
 
-# class WriteCorpusThread(threading.Thread):
-#     def __init__(self, files, output_file):
-#         threading.Thread.__init__(self)
-#         self.files = files
-#         self.output_file = output_file
-#
-#     def run(self) -> None:
-#         for file in files:
-#             self.gen_corpus(file)
-#
-#     def gen_corpus(self, file):
-#         f = codecs.open(file, 'r', 'utf-8')
-#         line = f.readline()
-#         corpus_file = codecs.open('../corpus/' + self.output_file, 'w', encoding='utf-8')
-#         while line:
-#             corpus_file.writelines(" ".join(jieba.cut(line)))
-#             line = f.readline()
-#         f.close()
-#         corpus_file.close()
+jieba.add_word('沪指')
+jieba.add_word('沪深')
+jieba.add_word('倒锤')
 
 
-# wiki_path = '/Users/ever/Documents/AI/NLP课程/projects/1/corpus/wiki'
-# news_file = '/Users/ever/Documents/AI/NLP课程/projects/1/corpus/news_corpus_raw.txt'
+def remove_stopwords(tokens):
+    if tokens is not None:
+        return [token for token in tokens if token not in stopwords_set]
+
 
 def gen_corpus(file):
-    f = codecs.open(file, 'r', 'utf-8')
-    line = f.readline()
-    while line:
-        corpus_file.writelines(" ".join(jieba.cut(line)))
-        line = f.readline()
-    f.close()
+    # f = codecs.open(file, 'r', 'utf-8')
+    # line = f.readline()
+    # while line:
+    with open(file, "r", encoding='utf-8') as corpus:
+        for line in tqdm(corpus, total=get_num_lines(file), desc='语料处理'):
+            corpus_file.writelines(" ".join(remove_stopwords(jieba.cut(line))))
 
 
-wiki_path = sys.argv[1]
-news_file = sys.argv[2]
-output_file = sys.argv[3]
+wiki_file, news_file, stopwords_file, output_file = sys.argv[1:5]
 
-files = [wiki_path + '/' + file_name for file_name in os.listdir(wiki_path)]
-files.append(news_file)
+files = [wiki_file, news_file]
+
+# 初始化停用词字典
+stopwords_set = set()
+with open(stopwords_file, 'r+', encoding='utf-8') as stopwords:
+    for stpwd in stopwords:
+        stopwords_set.add(stpwd.strip())
 
 corpus_file = codecs.open(output_file, 'w', encoding='utf-8')
 for file in files:
     gen_corpus(file)
 
-
 corpus_file.close()
-
-#
-# block_size = int(len(files) / multiprocessing.cpu_count())
-# block_files = [files[i:i + block_size] for i in range(0, len(files), block_size)]
-
-# block_idx = 0
-# for temp_files in block_files:
-# write_corpus_thread = WriteCorpusThread(temp_files, 'corpus_' + str(block_idx) + '.txt')
-# write_corpus_thread.start()
-# block_idx += 1
-
 
