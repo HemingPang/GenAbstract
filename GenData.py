@@ -24,6 +24,7 @@ def gen_corpus(file):
     # while line:
     with open(file, "r", encoding='utf-8') as corpus:
         for line in tqdm(corpus, total=get_num_lines(file), desc='语料处理'):
+            line = line.strip("\n")
             corpus_file.writelines(" ".join(remove_stopwords(jieba.cut(line))))
 
 
@@ -42,4 +43,3 @@ for file in files:
     gen_corpus(file)
 
 corpus_file.close()
-
